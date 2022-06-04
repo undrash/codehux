@@ -2,6 +2,7 @@ class CodeHux {
   routes = {};
   queues = {};
   jobs = {};
+  auth = {};
 
   post = (path, ...middleware) => {
     this.routes[`POST ${path}`] = middleware;
@@ -19,6 +20,10 @@ class CodeHux {
     this.routes[`DELETE ${path}`] = middleware;
   };
 
+  auth = (path, ...middleware) => {
+    this.auth[path] = middleware;
+  };
+
   queue = (topic, ...middleware) => {
     this.queues[topic] = middleware;
   };
@@ -32,6 +37,7 @@ class CodeHux {
       routehooks: this.routes,
       queuehooks: this.queues,
       jobhooks: this.jobs,
+      authhooks: this.auth,
     };
   };
 }
